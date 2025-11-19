@@ -2,23 +2,19 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 const Index = () => {
-  const [videoUrl, setVideoUrl] = useState('');
+  const [videoUrl] = useState('https://drive.google.com/uc?export=download&id=1SKTKNsVX2ZW05tet4H-nwRqOGJJX9CDA');
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {videoUrl ? (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover"
-        >
-          <source src={videoUrl} type="video/mp4" />
-        </video>
-      ) : (
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#1A1F2C] via-[#403E43] to-[#222222]" />
-      )}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </video>
 
       <div className="absolute inset-0 bg-black/30 z-10" />
 
@@ -38,16 +34,7 @@ const Index = () => {
         </Button>
       </div>
 
-      {!videoUrl && (
-        <div className="fixed bottom-6 right-6 z-30">
-          <input
-            type="text"
-            placeholder="Вставьте ссылку на видео"
-            className="font-open-sans px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder:text-white/60 border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all"
-            onChange={(e) => setVideoUrl(e.target.value)}
-          />
-        </div>
-      )}
+
     </div>
   );
 };
