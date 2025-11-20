@@ -1,17 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const [videoUrl] = useState('https://drive.google.com/uc?export=download&id=1SKTKNsVX2ZW05tet4H-nwRqOGJJX9CDA');
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => {
+        console.log('Autoplay prevented:', err);
+      });
+    }
+  }, []);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-70"
+        onError={(e) => {
+          console.error('Video failed to load');
+          e.currentTarget.style.display = 'none';
+        }}
       >
         <source src={videoUrl} type="video/mp4" />
       </video>
